@@ -21,8 +21,6 @@ import com.webank.wedatasphere.qualitis.entity.User;
 import com.webank.wedatasphere.qualitis.response.GeneralResponse;
 import com.webank.wedatasphere.qualitis.service.LoginService;
 import com.webank.wedatasphere.qualitis.service.UserService;
-import com.webank.wedatasphere.dss.appjoint.auth.AppJointAuth;
-import com.webank.wedatasphere.dss.appjoint.auth.RedirectMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,51 +61,32 @@ public class RedirectController {
     @Produces(MediaType.APPLICATION_JSON)
     public GeneralResponse<?> redirectToCoordinatePage(@Context HttpServletRequest httpServletRequest, @Context HttpServletResponse httpServletResponse) {
         if (workflowEnable) {
-            try {
-                // Invoke SDK to login
-                AppJointAuth appJointAuth = AppJointAuth.getAppJointAuth();
-                if (appJointAuth.isDssRequest(httpServletRequest)) {
-                    RedirectMsg redirectMsg = appJointAuth.getRedirectMsg(httpServletRequest);
-
-                    String redirectUrl = redirectMsg.getRedirectUrl();
-                    String username = redirectMsg.getUser();
-                    LOGGER.info("Succeed to get redirect url: {}, and username: {}", redirectUrl, username);
-
-                    // Login in my system
-                    loginByUser(username, httpServletRequest);
-
-                    httpServletResponse.sendRedirect(redirectUrl);
-                    return null;
-                } else {
-                    return new GeneralResponse("400", "{&NOT_A_DSS_REQUEST}", null);
-                }
-            } catch (Exception e) {
-                LOGGER.error("Failed to redirect to other page, caused by: {}", e.getMessage(), e);
-                return new GeneralResponse("200", "Failed to redirect to other page.", null);
-            }
+//            try {
+//                // Invoke SDK to login
+//                AppJointAuth appJointAuth = AppJointAuth.getAppJointAuth();
+//                if (appJointAuth.isDssRequest(httpServletRequest)) {
+//                    RedirectMsg redirectMsg = appJointAuth.getRedirectMsg(httpServletRequest);
+//
+//                    String redirectUrl = redirectMsg.getRedirectUrl();
+//                    String username = redirectMsg.getUser();
+//                    LOGGER.info("Succeed to get redirect url: {}, and username: {}", redirectUrl, username);
+//
+//                    // Login in my system
+//                    loginByUser(username, httpServletRequest);
+//
+//                    httpServletResponse.sendRedirect(redirectUrl);
+//                    return null;
+//                } else {
+//                    return new GeneralResponse("400", "{&NOT_A_DSS_REQUEST}", null);
+//                }
+//            } catch (Exception e) {
+//                LOGGER.error("Failed to redirect to other page, caused by: {}", e.getMessage(), e);
+//                return new GeneralResponse("200", "Failed to redirect to other page.", null);
+//            }
         } else {
             return new GeneralResponse<>("400", "Workflow is not enabled", null);
         }
-    }
-
-    private void loginByUser(String username, HttpServletRequest request) {
-        // 查询数据库，看用户是否存在
-        User userInDb = userDao.findByUsername(username);
-        if (userInDb != null) {
-            // 放入session
-            LOGGER.info("User: {} succeed to login", username);
-            loginService.addToSession(username, request);
-        } else {
-            // 自动创建用户
-            LOGGER.warn("user: {}, do not exist, trying to create user", username);
-            try {
-                userService.autoAddUser(username);
-                loginService.addToSession(username, request);
-            } catch (RoleNotFoundException e) {
-                LOGGER.error("Failed to auto add user, cause by: Failed to get role [PROJECTOR]", e);
-            }
-        }
-
+        return null;
     }
 
 }

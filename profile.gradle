@@ -42,10 +42,6 @@ project(':web/app') {
     compile libs.springBootStarterLog4j2
     compile libs.springBootStarterTest
     compile libs.springBootStarterAop
-    compile libs.dssAppJointAuth
-//    compile (libs.springAop) {
-//      force = true
-//    }
     compile libs.springAop
     compile libs.springAspects
     compile libs.springBeans
@@ -351,5 +347,22 @@ project(':core/sys_config') {
     compile libs.springBootStarterJersey
     compile libs.springBootStarterDataJpa
     compile libs.mysqlConnectorJava
+  }
+}
+
+project(':plugins/qualitis-appconn') {
+  archivesBaseName = 'plugins_qualitis_appconn'
+
+  dependencies {
+    compile libs.linkisModule
+    compile (libs.dssContextService) {
+      exclude module: 'httpclient'
+    }
+    compile libs.dssCommon
+    compile (libs.dssOriginSSO) {
+      exclude module: 'linkis-common'
+      exclude module: 'json4s-jackson_2.11'
+    }
+    compile libs.gson
   }
 }
