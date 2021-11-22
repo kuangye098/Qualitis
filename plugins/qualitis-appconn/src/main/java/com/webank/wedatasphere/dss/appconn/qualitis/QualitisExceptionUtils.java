@@ -1,10 +1,10 @@
-package com.webank.wedatasphere.dss.appconn.exchangis;
+package com.webank.wedatasphere.dss.appconn.qualitis;
 
 import com.webank.wedatasphere.linkis.common.exception.ErrorException;
 
 import java.lang.reflect.Constructor;
 
-public class ExchangisExceptionUtils {
+public class QualitisExceptionUtils {
     public static <T extends ErrorException> void dealErrorException(int errorCode, String errorDesc, Throwable throwable, Class<T> clazz) throws T {
         ErrorException errorException1;
         T errorException = null;

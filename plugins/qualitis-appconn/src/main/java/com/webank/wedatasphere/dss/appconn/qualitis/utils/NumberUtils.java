@@ -16,7 +16,7 @@
  *
  */
 
-package com.webank.wedatasphere.dss.appconn.exchangis.utils;
+package com.webank.wedatasphere.dss.appconn.qualitis.utils;
 
 public class NumberUtils {
 

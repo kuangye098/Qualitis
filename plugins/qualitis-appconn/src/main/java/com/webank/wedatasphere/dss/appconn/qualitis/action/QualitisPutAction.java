@@ -1,4 +1,4 @@
-package com.webank.wedatasphere.dss.appconn.exchangis.action;
+package com.webank.wedatasphere.dss.appconn.qualitis.action;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.webank.wedatasphere.linkis.httpclient.request.PutAction;
@@ -7,9 +7,9 @@ import com.webank.wedatasphere.linkis.server.BDPJettyServerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExchangisPutAction extends PutAction implements UserAction {
+public class QualitisPutAction extends PutAction implements UserAction {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExchangisPutAction.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QualitisPutAction.class);
     private String url;
     private String user;
 

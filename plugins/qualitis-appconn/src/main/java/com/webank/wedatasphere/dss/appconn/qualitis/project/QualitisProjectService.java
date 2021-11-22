@@ -1,6 +1,6 @@
-package com.webank.wedatasphere.dss.appconn.exchangis.project;
+package com.webank.wedatasphere.dss.appconn.qualitis.project;
 
-import com.webank.wedatasphere.dss.appconn.exchangis.ExchangisConf;
+import com.webank.wedatasphere.dss.appconn.qualitis.QualitisConf;
 import com.webank.wedatasphere.dss.standard.app.sso.request.SSORequestOperation;
 import com.webank.wedatasphere.dss.standard.app.structure.StructureIntegrationStandard;
 import com.webank.wedatasphere.dss.standard.app.structure.project.*;
@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ExchangisProjectService extends ProjectService {
+public class QualitisProjectService extends ProjectService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExchangisProjectService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QualitisProjectService.class);
 
     private AppInstance appInstance;
 
@@ -54,20 +54,20 @@ public class ExchangisProjectService extends ProjectService {
 
     public ProjectCreationOperation createProjectCreationOperation() {
         SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation
-                = getSSORequestService().createSSORequestOperation(ExchangisConf.APP_NAME.getValue());
-        return new ExchangisProjectCreationOperation(this,ssoRequestOperation);
+                = getSSORequestService().createSSORequestOperation(QualitisConf.APP_NAME.getValue());
+        return new QualitisProjectCreationOperation(this,ssoRequestOperation);
     }
 
     public ProjectUpdateOperation createProjectUpdateOperation() {
         SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation
-                = getSSORequestService().createSSORequestOperation(ExchangisConf.APP_NAME.getValue());
-        return new ExchangisProjectUpdateOperation(this,ssoRequestOperation);
+                = getSSORequestService().createSSORequestOperation(QualitisConf.APP_NAME.getValue());
+        return new QualitisProjectUpdateOperation(this,ssoRequestOperation);
     }
 
     public ProjectDeletionOperation createProjectDeletionOperation() {
         SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation
-                = getSSORequestService().createSSORequestOperation(ExchangisConf.APP_NAME.getValue());
-        return new ExchangisProjectDeleteOperation(this,ssoRequestOperation);
+                = getSSORequestService().createSSORequestOperation(QualitisConf.APP_NAME.getValue());
+        return new QualitisProjectDeleteOperation(this,ssoRequestOperation);
     }
 
     public ProjectUrlOperation createProjectUrlOperation() {

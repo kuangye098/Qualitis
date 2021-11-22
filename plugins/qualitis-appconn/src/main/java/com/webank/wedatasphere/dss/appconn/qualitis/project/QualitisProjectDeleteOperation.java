@@ -1,9 +1,8 @@
-package com.webank.wedatasphere.dss.appconn.exchangis.project;
+package com.webank.wedatasphere.dss.appconn.qualitis.project;
 
-import com.webank.wedatasphere.dss.appconn.exchangis.ExchangisConf;
-import com.webank.wedatasphere.dss.appconn.exchangis.ExchangisExceptionUtils;
-import com.webank.wedatasphere.dss.appconn.exchangis.action.ExchangisDeleteAction;
-import com.webank.wedatasphere.dss.appconn.exchangis.action.ExchangisPostAction;
+import com.webank.wedatasphere.dss.appconn.qualitis.QualitisConf;
+import com.webank.wedatasphere.dss.appconn.qualitis.QualitisExceptionUtils;
+import com.webank.wedatasphere.dss.appconn.qualitis.action.QualitisDeleteAction;
 import com.webank.wedatasphere.dss.standard.app.sso.builder.SSOUrlBuilderOperation;
 import com.webank.wedatasphere.dss.standard.app.sso.request.SSORequestOperation;
 import com.webank.wedatasphere.dss.standard.app.structure.StructureService;
@@ -19,9 +18,9 @@ import com.webank.wedatasphere.linkis.server.conf.ServerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExchangisProjectDeleteOperation implements ProjectDeletionOperation, ExchangisConf {
+public class QualitisProjectDeleteOperation implements ProjectDeletionOperation, QualitisConf {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExchangisProjectDeleteOperation.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QualitisProjectDeleteOperation.class);
 
     private SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation;
 
@@ -29,7 +28,7 @@ public class ExchangisProjectDeleteOperation implements ProjectDeletionOperation
 
     private final static String projectUrl = "/api/rest_s/" + ServerConfiguration.BDP_SERVER_VERSION() + "/exchangis/projects/{}";
 
-    public ExchangisProjectDeleteOperation(StructureService structureService, SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation) {
+    public QualitisProjectDeleteOperation(StructureService structureService, SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation) {
         this.structureService = structureService;
         this.ssoRequestOperation = ssoRequestOperation;
     }
@@ -55,9 +54,9 @@ public class ExchangisProjectDeleteOperation implements ProjectDeletionOperation
         LOGGER.info("project delete operation .....ProjectRequestRef = {},projectUrl = {} " +
                 "            , dssUrl = {}.",requestRef,actualProjectUrl,url);
 
-        ExchangisProjectResponseRef responseRef = null;
+        QualitisProjectResponseRef responseRef = null;
 
-        ExchangisDeleteAction deleteAction = new ExchangisDeleteAction();
+        QualitisDeleteAction deleteAction = new QualitisDeleteAction();
         deleteAction.setUrl(actualProjectUrl);
         deleteAction.setUser(requestRef.getCreateBy());
         deleteAction.setParameter("id", requestRef.getId());
@@ -72,15 +71,15 @@ public class ExchangisProjectDeleteOperation implements ProjectDeletionOperation
             httpResponse = this.ssoRequestOperation.requestWithSSO(ssoUrlBuilderOperation,deleteAction);
             LOGGER.info("{}, exchangis {}", requestRef.getName(), httpResponse.getResponseBody());
             if(httpResponse.getStatusCode() == 200){
-                responseRef = new ExchangisProjectResponseRef(httpResponse.getResponseBody(),0);
+                responseRef = new QualitisProjectResponseRef(httpResponse.getResponseBody(),0);
                 responseRef.setProjectRefId((Long)responseRef.toMap().get("projectId"));
             }else {
-                ExchangisExceptionUtils.dealErrorException(60051,
+                QualitisExceptionUtils.dealErrorException(60051,
                         "failed to delete project in exchangis : " + responseRef.getErrorMsg(),
                         ExternalOperationFailedException.class);
             }
         } catch (Throwable t) {
-            ExchangisExceptionUtils.dealErrorException(60051, "failed to delete project in exchangis", t, ExternalOperationFailedException.class);
+            QualitisExceptionUtils.dealErrorException(60051, "failed to delete project in exchangis", t, ExternalOperationFailedException.class);
         }
         return responseRef;
     }

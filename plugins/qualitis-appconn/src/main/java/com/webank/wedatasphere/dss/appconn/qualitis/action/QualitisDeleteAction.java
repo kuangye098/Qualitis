@@ -14,12 +14,12 @@
  *
  */
 
-package com.webank.wedatasphere.dss.appconn.exchangis.action;
+package com.webank.wedatasphere.dss.appconn.qualitis.action;
 
 import com.webank.wedatasphere.linkis.httpclient.request.DeleteAction;
 import com.webank.wedatasphere.linkis.httpclient.request.UserAction;
 
-public class ExchangisDeleteAction extends DeleteAction implements UserAction {
+public class QualitisDeleteAction extends DeleteAction implements UserAction {
 
     String url;
     String user;

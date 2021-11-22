@@ -1,8 +1,8 @@
-package com.webank.wedatasphere.dss.appconn.exchangis.project;
+package com.webank.wedatasphere.dss.appconn.qualitis.project;
 
-import com.webank.wedatasphere.dss.appconn.exchangis.ExchangisConf;
-import com.webank.wedatasphere.dss.appconn.exchangis.ExchangisExceptionUtils;
-import com.webank.wedatasphere.dss.appconn.exchangis.action.ExchangisPostAction;
+import com.webank.wedatasphere.dss.appconn.qualitis.QualitisConf;
+import com.webank.wedatasphere.dss.appconn.qualitis.QualitisExceptionUtils;
+import com.webank.wedatasphere.dss.appconn.qualitis.action.QualitisPostAction;
 import com.webank.wedatasphere.dss.standard.app.sso.builder.SSOUrlBuilderOperation;
 import com.webank.wedatasphere.dss.standard.app.sso.request.SSORequestOperation;
 import com.webank.wedatasphere.dss.standard.app.structure.StructureService;
@@ -16,9 +16,9 @@ import com.webank.wedatasphere.linkis.server.conf.ServerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExchangisProjectCreationOperation implements ProjectCreationOperation, ExchangisConf {
+public class QualitisProjectCreationOperation implements ProjectCreationOperation, QualitisConf {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExchangisProjectCreationOperation.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QualitisProjectCreationOperation.class);
 
     private SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation;
 
@@ -26,7 +26,7 @@ public class ExchangisProjectCreationOperation implements ProjectCreationOperati
 
     private final static String projectUrl = "/api/rest_s/" + ServerConfiguration.BDP_SERVER_VERSION() + "/exchangis/createProject";
 
-    public ExchangisProjectCreationOperation(StructureService structureService,SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation) {
+    public QualitisProjectCreationOperation(StructureService structureService, SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation) {
         this.structureService = structureService;
         this.ssoRequestOperation = ssoRequestOperation;
     }
@@ -46,9 +46,9 @@ public class ExchangisProjectCreationOperation implements ProjectCreationOperati
         LOGGER.info("project create operation .....ProjectRequestRef = {},projectUrl = {} " +
                 "            , dssUrl = {}.",requestRef,this.projectUrl,url);
 
-        ExchangisProjectResponseRef responseRef = null;
+        QualitisProjectResponseRef responseRef = null;
 
-        ExchangisPostAction httpPost = new ExchangisPostAction();
+        QualitisPostAction httpPost = new QualitisPostAction();
         httpPost.setUrl(projectUrl);
         httpPost.setUser(requestRef.getCreateBy());
         httpPost.addRequestPayload("workspaceName", requestRef.getWorkspaceName());
@@ -67,15 +67,15 @@ public class ExchangisProjectCreationOperation implements ProjectCreationOperati
             httpResponse = this.ssoRequestOperation.requestWithSSO(ssoUrlBuilderOperation,httpPost);
             LOGGER.info("{}, exchangis {}", requestRef.getName(), httpResponse.getResponseBody());
             if(httpResponse.getStatusCode() == 200){
-                responseRef = new ExchangisProjectResponseRef(httpResponse.getResponseBody(),0);
+                responseRef = new QualitisProjectResponseRef(httpResponse.getResponseBody(),0);
                 responseRef.setProjectRefId((Long)responseRef.toMap().get("projectId"));
             }else {
-                ExchangisExceptionUtils.dealErrorException(60051,
+                QualitisExceptionUtils.dealErrorException(60051,
                         "failed to create project in exchangis : " + responseRef.getErrorMsg(),
                         ExternalOperationFailedException.class);
             }
         } catch (Throwable t) {
-            ExchangisExceptionUtils.dealErrorException(60051, "failed to create project in exchangis", t, ExternalOperationFailedException.class);
+            QualitisExceptionUtils.dealErrorException(60051, "failed to create project in exchangis", t, ExternalOperationFailedException.class);
         }
         return responseRef;
     }

@@ -1,4 +1,4 @@
-package com.webank.wedatasphere.dss.appconn.exchangis.project;
+package com.webank.wedatasphere.dss.appconn.qualitis.project;
 
 import com.google.common.collect.Maps;
 import com.webank.wedatasphere.dss.standard.app.structure.project.ProjectResponseRef;
@@ -8,13 +8,13 @@ import com.webank.wedatasphere.linkis.server.BDPJettyServerHelper;
 
 import java.util.Map;
 
-public class ExchangisProjectResponseRef extends AbstractResponseRef implements ProjectResponseRef {
+public class QualitisProjectResponseRef extends AbstractResponseRef implements ProjectResponseRef {
 
     private String errorMsg;
     private Long projectRefId;
     private AppInstance appInstance;
 
-    public ExchangisProjectResponseRef(String responseBody,int status) throws Exception {
+    public QualitisProjectResponseRef(String responseBody, int status) throws Exception {
         super(responseBody, status);
         responseMap = BDPJettyServerHelper.jacksonJson().readValue(responseBody, Map.class);
     }

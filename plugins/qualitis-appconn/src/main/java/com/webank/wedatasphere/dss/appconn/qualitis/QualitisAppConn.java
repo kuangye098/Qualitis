@@ -1,13 +1,13 @@
-package com.webank.wedatasphere.dss.appconn.exchangis;
+package com.webank.wedatasphere.dss.appconn.qualitis;
 
 import com.webank.wedatasphere.dss.appconn.core.ext.ThirdlyAppConn;
 import com.webank.wedatasphere.dss.appconn.core.impl.AbstractOnlySSOAppConn;
 import com.webank.wedatasphere.dss.standard.app.development.standard.DevelopmentIntegrationStandard;
 import com.webank.wedatasphere.dss.standard.app.structure.StructureIntegrationStandard;
-import com.webank.wedatasphere.dss.appconn.exchangis.standard.ExchangisDevelopmentIntergrationStandard;
-import com.webank.wedatasphere.dss.appconn.exchangis.standard.ExchangisStructureIntegrationStandard;
+import com.webank.wedatasphere.dss.appconn.qualitis.standard.QualitisDevelopmentIntergrationStandard;
+import com.webank.wedatasphere.dss.appconn.qualitis.standard.QualitisStructureIntegrationStandard;
 
-public class ExchangisAppConn extends AbstractOnlySSOAppConn implements ThirdlyAppConn {
+public class QualitisAppConn extends AbstractOnlySSOAppConn implements ThirdlyAppConn {
 
     private DevelopmentIntegrationStandard developmentIntegrationStandard;
     private StructureIntegrationStandard structureIntegrationStandard;
@@ -15,8 +15,8 @@ public class ExchangisAppConn extends AbstractOnlySSOAppConn implements ThirdlyA
 
     @Override
     protected void initialize() {
-        developmentIntegrationStandard = new ExchangisDevelopmentIntergrationStandard();
-        structureIntegrationStandard = new ExchangisStructureIntegrationStandard();
+        developmentIntegrationStandard = new QualitisDevelopmentIntergrationStandard();
+        structureIntegrationStandard = new QualitisStructureIntegrationStandard();
     }
 
 

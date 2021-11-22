@@ -1,7 +1,7 @@
-package com.webank.wedatasphere.dss.appconn.exchangis.ref.service;
+package com.webank.wedatasphere.dss.appconn.qualitis.ref.service;
 
 
-import com.webank.wedatasphere.dss.appconn.exchangis.ref.operation.ExchangisRefCreationOperation;
+import com.webank.wedatasphere.dss.appconn.qualitis.ref.operation.QualitisRefCreationOperation;
 import com.webank.wedatasphere.dss.standard.app.development.operation.RefCopyOperation;
 import com.webank.wedatasphere.dss.standard.app.development.operation.RefCreationOperation;
 import com.webank.wedatasphere.dss.standard.app.development.operation.RefDeletionOperation;
@@ -13,11 +13,11 @@ import com.webank.wedatasphere.dss.standard.app.development.service.AbstractRefC
 import com.webank.wedatasphere.dss.standard.common.entity.ref.RequestRef;
 
 
-public class ExchangisCRUDService extends AbstractRefCRUDService {
+public class QualitisCRUDService extends AbstractRefCRUDService {
 
     @Override
     protected <K extends CreateRequestRef> RefCreationOperation createRefCreationOperation() {
-        return new ExchangisRefCreationOperation(this);
+        return new QualitisRefCreationOperation(this);
     }
 
     @Override

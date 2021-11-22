@@ -1,11 +1,11 @@
-package com.webank.wedatasphere.dss.appconn.exchangis.ref.entity;
+package com.webank.wedatasphere.dss.appconn.qualitis.ref.entity;
 
 import com.google.common.collect.Maps;
 import com.webank.wedatasphere.dss.standard.app.development.ref.CreateRequestRef;
 
 import java.util.Map;
 
-public class ExchangisCreateRequestRef implements CreateRequestRef {
+public class QualitisCreateRequestRef implements CreateRequestRef {
 
     private String name;
     private String type;

@@ -1,8 +1,8 @@
-package com.webank.wedatasphere.dss.appconn.exchangis.project;
+package com.webank.wedatasphere.dss.appconn.qualitis.project;
 
-import com.webank.wedatasphere.dss.appconn.exchangis.ExchangisConf;
-import com.webank.wedatasphere.dss.appconn.exchangis.ExchangisExceptionUtils;
-import com.webank.wedatasphere.dss.appconn.exchangis.action.ExchangisPutAction;
+import com.webank.wedatasphere.dss.appconn.qualitis.QualitisConf;
+import com.webank.wedatasphere.dss.appconn.qualitis.QualitisExceptionUtils;
+import com.webank.wedatasphere.dss.appconn.qualitis.action.QualitisPutAction;
 import com.webank.wedatasphere.dss.standard.app.sso.builder.SSOUrlBuilderOperation;
 import com.webank.wedatasphere.dss.standard.app.sso.request.SSORequestOperation;
 import com.webank.wedatasphere.dss.standard.app.structure.StructureService;
@@ -16,9 +16,9 @@ import com.webank.wedatasphere.linkis.server.conf.ServerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExchangisProjectUpdateOperation implements ProjectUpdateOperation, ExchangisConf {
+public class QualitisProjectUpdateOperation implements ProjectUpdateOperation, QualitisConf {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExchangisProjectUpdateOperation.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QualitisProjectUpdateOperation.class);
 
     private SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation;
 
@@ -26,7 +26,7 @@ public class ExchangisProjectUpdateOperation implements ProjectUpdateOperation, 
 
     private final static String projectUrl = "/api/rest_s/" + ServerConfiguration.BDP_SERVER_VERSION() + "/exchangis/updateProject";
 
-    public ExchangisProjectUpdateOperation(StructureService structureService, SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation) {
+    public QualitisProjectUpdateOperation(StructureService structureService, SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation) {
         this.structureService = structureService;
         this.ssoRequestOperation = ssoRequestOperation;
     }
@@ -51,9 +51,9 @@ public class ExchangisProjectUpdateOperation implements ProjectUpdateOperation, 
         LOGGER.info("project update operation .....ProjectRequestRef = {},projectUrl = {} " +
                 "            , dssUrl = {}.",projectRequestRef,this.projectUrl,url);
 
-        ExchangisProjectResponseRef responseRef = null;
+        QualitisProjectResponseRef responseRef = null;
 
-        ExchangisPutAction putAction = new ExchangisPutAction();
+        QualitisPutAction putAction = new QualitisPutAction();
         putAction.setUrl(projectUrl);
         putAction.setUser(projectRequestRef.getCreateBy());
         putAction.addRequestPayload("workspaceName", projectRequestRef.getWorkspaceName());
@@ -72,15 +72,15 @@ public class ExchangisProjectUpdateOperation implements ProjectUpdateOperation, 
             httpResponse = this.ssoRequestOperation.requestWithSSO(ssoUrlBuilderOperation,putAction);
             LOGGER.info("{}, exchangis {}", projectRequestRef.getName(), httpResponse.getResponseBody());
             if(httpResponse.getStatusCode() == 200){
-                responseRef = new ExchangisProjectResponseRef(httpResponse.getResponseBody(),0);
+                responseRef = new QualitisProjectResponseRef(httpResponse.getResponseBody(),0);
                 responseRef.setProjectRefId((Long)responseRef.toMap().get("id"));
             }else {
-                ExchangisExceptionUtils.dealErrorException(60051,
+                QualitisExceptionUtils.dealErrorException(60051,
                         "failed to update project in exchangis : " + responseRef.getErrorMsg(),
                         ExternalOperationFailedException.class);
             }
         } catch (Throwable t) {
-            ExchangisExceptionUtils.dealErrorException(60051, "failed to update project in exchangis", t, ExternalOperationFailedException.class);
+            QualitisExceptionUtils.dealErrorException(60051, "failed to update project in exchangis", t, ExternalOperationFailedException.class);
         }
         return responseRef;
     }
