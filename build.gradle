@@ -35,6 +35,13 @@ buildscript {
     maven {
       url "http://maven.aliyun.com/nexus/content/groups/public/"
     }
+    maven {
+      url "https://maven.aliyun.com/repository/spring-plugin"
+    }
+    maven {
+      url "https://repo.spring.io/plugins-release"
+    }
+    mavenCentral();
   }
 }
 
@@ -47,6 +54,13 @@ repositories {
   maven {
     url "http://maven.aliyun.com/nexus/content/groups/public/"
   }
+  maven {
+    url "https://maven.aliyun.com/repository/spring-plugin"
+  }
+  maven {
+    url "https://repo.spring.io/plugins-release"
+  }
+  mavenCentral();
 }
 
 mainClassName = "com.webank.wedatasphere.qualitis.QualitisServer"
@@ -112,7 +126,13 @@ subprojects {
     maven {
       url "http://maven.aliyun.com/nexus/content/groups/public/"
     }
-//     mavenCentral()
+    maven {
+      url "https://maven.aliyun.com/repository/spring-plugin"
+    }
+    maven {
+      url "https://repo.spring.io/plugins-release"
+    }
+    mavenCentral();
   }
 
   processResources {
@@ -130,19 +150,19 @@ subprojects {
 
 configurations.all {
   resolutionStrategy {
-    force 'org.springframework:spring-aop:5.1.15.RELEASE'
-    force 'org.springframework:spring-aspects:5.1.15.RELEASE'
-    force 'org.springframework:spring-beans:5.1.15.RELEASE'
-    force 'org.springframework:spring-context:5.1.15.RELEASE'
-    force 'org.springframework:spring-core:5.1.15.RELEASE'
-    force 'org.springframework:spring-expressions:5.1.15.RELEASE'
-    force 'org.springframework:spring-jcl:5.1.15.RELEASE'
-    force 'org.springframework:spring-jdbc:5.1.15.RELEASE'
-    force 'org.springframework:spring-orm:5.1.15.RELEASE'
-    force 'org.springframework:spring-test:5.1.15.RELEASE'
-    force 'org.springframework:spring-tx:5.1.15.RELEASE'
-    force 'org.springframework:spring-web:5.1.15.RELEASE'
-    force 'org.springframework:spring-webmvc:5.1.15.RELEASE'
+    force 'org.springframework:spring-aop:5.2.12.RELEASE'
+    force 'org.springframework:spring-aspects:5.2.12.RELEASE'
+    force 'org.springframework:spring-beans:5.2.12.RELEASE'
+    force 'org.springframework:spring-context:5.2.12.RELEASE'
+    force 'org.springframework:spring-core:5.2.12.RELEASE'
+    force 'org.springframework:spring-expressions:5.2.12.RELEASE'
+    force 'org.springframework:spring-jcl:5.2.12.RELEASE'
+    force 'org.springframework:spring-jdbc:5.2.12.RELEASE'
+    force 'org.springframework:spring-orm:5.2.12.RELEASE'
+    force 'org.springframework:spring-test:5.2.12.RELEASE'
+    force 'org.springframework:spring-tx:5.2.12.RELEASE'
+    force 'org.springframework:spring-web:5.2.12.RELEASE'
+    force 'org.springframework:spring-webmvc:5.2.12.RELEASE'
   }
 }
 
