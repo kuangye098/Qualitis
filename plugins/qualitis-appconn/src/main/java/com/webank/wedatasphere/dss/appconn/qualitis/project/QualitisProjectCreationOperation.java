@@ -24,7 +24,7 @@ public class QualitisProjectCreationOperation implements ProjectCreationOperatio
 
     private StructureService structureService;
 
-    private final static String projectUrl = "/api/rest_s/" + ServerConfiguration.BDP_SERVER_VERSION() + "/exchangis/createProject";
+    private final static String projectUrl = "/api/rest_s/" + ServerConfiguration.BDP_SERVER_VERSION() + "/qualitis/createProject";
 
     public QualitisProjectCreationOperation(StructureService structureService, SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation) {
         this.structureService = structureService;

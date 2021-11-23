@@ -16,6 +16,7 @@
 
 package com.webank.wedatasphere.qualitis.project.controller;
 
+import com.webank.wedatasphere.qualitis.common.Constants;
 import com.webank.wedatasphere.qualitis.exception.UnExpectedRequestException;
 import com.webank.wedatasphere.qualitis.project.request.AddProjectRequest;
 import com.webank.wedatasphere.qualitis.project.request.DeleteProjectRequest;
@@ -23,12 +24,6 @@ import com.webank.wedatasphere.qualitis.project.request.ModifyProjectDetailReque
 import com.webank.wedatasphere.qualitis.project.response.ProjectDetailResponse;
 import com.webank.wedatasphere.qualitis.project.service.OuterWorkflowService;
 import com.webank.wedatasphere.qualitis.response.GeneralResponse;
-import com.webank.wedatasphere.qualitis.util.HttpUtils;
-import com.webank.wedatasphere.qualitis.project.request.AddProjectRequest;
-import com.webank.wedatasphere.qualitis.project.request.DeleteProjectRequest;
-import com.webank.wedatasphere.qualitis.project.request.ModifyProjectDetailRequest;
-import com.webank.wedatasphere.qualitis.project.response.ProjectDetailResponse;
-import com.webank.wedatasphere.qualitis.project.service.OuterWorkflowService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +36,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author howeye
  */
-@Path("outer/api/v1/project/workflow")
+@Path(Constants.BASE_API_PATH + "/projects")
 public class OuterWorkflowController {
 
 
@@ -50,7 +45,7 @@ public class OuterWorkflowController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OuterWorkflowController.class);
 
-    @PUT
+    @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public GeneralResponse<ProjectDetailResponse> addWorkflowProject(AddProjectRequest request, @Context HttpServletRequest httpServletRequest) throws UnExpectedRequestException {
@@ -64,7 +59,7 @@ public class OuterWorkflowController {
         }
     }
 
-    @POST
+    @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public GeneralResponse<?> modifyWorkflowProjectDetail(ModifyProjectDetailRequest request) throws UnExpectedRequestException {
