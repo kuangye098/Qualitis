@@ -65,17 +65,17 @@ public class QualitisProjectCreationOperation implements ProjectCreationOperatio
         HttpResult httpResponse;
         try {
             httpResponse = this.ssoRequestOperation.requestWithSSO(ssoUrlBuilderOperation,httpPost);
-            LOGGER.info("{}, exchangis {}", requestRef.getName(), httpResponse.getResponseBody());
+            LOGGER.info("{}, qualitis {}", requestRef.getName(), httpResponse.getResponseBody());
             if(httpResponse.getStatusCode() == 200){
                 responseRef = new QualitisProjectResponseRef(httpResponse.getResponseBody(),0);
                 responseRef.setProjectRefId((Long)responseRef.toMap().get("projectId"));
             }else {
                 QualitisExceptionUtils.dealErrorException(60051,
-                        "failed to create project in exchangis : " + responseRef.getErrorMsg(),
+                        "failed to create project in qualitis : " + responseRef.getErrorMsg(),
                         ExternalOperationFailedException.class);
             }
         } catch (Throwable t) {
-            QualitisExceptionUtils.dealErrorException(60051, "failed to create project in exchangis", t, ExternalOperationFailedException.class);
+            QualitisExceptionUtils.dealErrorException(60051, "failed to create project in qualitis", t, ExternalOperationFailedException.class);
         }
         return responseRef;
     }

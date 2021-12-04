@@ -24,7 +24,7 @@ public class QualitisProjectUpdateOperation implements ProjectUpdateOperation, Q
 
     private StructureService structureService;
 
-    private final static String projectUrl = "/api/rest_s/" + ServerConfiguration.BDP_SERVER_VERSION() + "/exchangis/updateProject";
+    private final static String projectUrl = "/api/rest_s/" + ServerConfiguration.BDP_SERVER_VERSION() + "/qualitis/updateProject";
 
     public QualitisProjectUpdateOperation(StructureService structureService, SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation) {
         this.structureService = structureService;
@@ -70,7 +70,7 @@ public class QualitisProjectUpdateOperation implements ProjectUpdateOperation, Q
         HttpResult httpResponse;
         try {
             httpResponse = this.ssoRequestOperation.requestWithSSO(ssoUrlBuilderOperation,putAction);
-            LOGGER.info("{}, exchangis {}", projectRequestRef.getName(), httpResponse.getResponseBody());
+            LOGGER.info("{}, qualitis {}", projectRequestRef.getName(), httpResponse.getResponseBody());
             if(httpResponse.getStatusCode() == 200){
                 responseRef = new QualitisProjectResponseRef(httpResponse.getResponseBody(),0);
                 responseRef.setProjectRefId((Long)responseRef.toMap().get("id"));
@@ -80,7 +80,7 @@ public class QualitisProjectUpdateOperation implements ProjectUpdateOperation, Q
                         ExternalOperationFailedException.class);
             }
         } catch (Throwable t) {
-            QualitisExceptionUtils.dealErrorException(60051, "failed to update project in exchangis", t, ExternalOperationFailedException.class);
+            QualitisExceptionUtils.dealErrorException(60051, "failed to update project in qualitis", t, ExternalOperationFailedException.class);
         }
         return responseRef;
     }

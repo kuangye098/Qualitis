@@ -26,7 +26,7 @@ public class QualitisProjectDeleteOperation implements ProjectDeletionOperation,
 
     private StructureService structureService;
 
-    private final static String projectUrl = "/api/rest_s/" + ServerConfiguration.BDP_SERVER_VERSION() + "/exchangis/projects/{}";
+    private final static String projectUrl = "/api/rest_s/" + ServerConfiguration.BDP_SERVER_VERSION() + "/qualitis/projects/{}";
 
     public QualitisProjectDeleteOperation(StructureService structureService, SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation) {
         this.structureService = structureService;
@@ -59,7 +59,7 @@ public class QualitisProjectDeleteOperation implements ProjectDeletionOperation,
         QualitisDeleteAction deleteAction = new QualitisDeleteAction();
         deleteAction.setUrl(actualProjectUrl);
         deleteAction.setUser(requestRef.getCreateBy());
-        deleteAction.setParameter("id", requestRef.getId());
+        deleteAction.setParameter("project_id", requestRef.getId());
 
         SSOUrlBuilderOperation ssoUrlBuilderOperation = requestRef.getWorkspace().getSSOUrlBuilderOperation().copy();
         ssoUrlBuilderOperation.setAppName(APP_NAME.getValue());
@@ -69,7 +69,7 @@ public class QualitisProjectDeleteOperation implements ProjectDeletionOperation,
         HttpResult httpResponse;
         try {
             httpResponse = this.ssoRequestOperation.requestWithSSO(ssoUrlBuilderOperation,deleteAction);
-            LOGGER.info("{}, exchangis {}", requestRef.getName(), httpResponse.getResponseBody());
+            LOGGER.info("{}, qualitis {}", requestRef.getName(), httpResponse.getResponseBody());
             if(httpResponse.getStatusCode() == 200){
                 responseRef = new QualitisProjectResponseRef(httpResponse.getResponseBody(),0);
                 responseRef.setProjectRefId((Long)responseRef.toMap().get("projectId"));
@@ -79,7 +79,7 @@ public class QualitisProjectDeleteOperation implements ProjectDeletionOperation,
                         ExternalOperationFailedException.class);
             }
         } catch (Throwable t) {
-            QualitisExceptionUtils.dealErrorException(60051, "failed to delete project in exchangis", t, ExternalOperationFailedException.class);
+            QualitisExceptionUtils.dealErrorException(60051, "failed to delete project in qualitis", t, ExternalOperationFailedException.class);
         }
         return responseRef;
     }

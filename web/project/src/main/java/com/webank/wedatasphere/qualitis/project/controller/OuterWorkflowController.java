@@ -36,7 +36,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author howeye
  */
-@Path(Constants.BASE_API_PATH + "/projects")
+@Path(Constants.BASE_API_PATH)
 public class OuterWorkflowController {
 
 
@@ -48,6 +48,7 @@ public class OuterWorkflowController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/createProject")
     public GeneralResponse<ProjectDetailResponse> addWorkflowProject(AddProjectRequest request, @Context HttpServletRequest httpServletRequest) throws UnExpectedRequestException {
         try {
             return outerWorkflowService.addWorkflowProject(request, request.getUsername());
@@ -62,6 +63,7 @@ public class OuterWorkflowController {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/updateProject")
     public GeneralResponse<?> modifyWorkflowProjectDetail(ModifyProjectDetailRequest request) throws UnExpectedRequestException {
         try {
             return outerWorkflowService.modifyWorkflowProjectDetail(request);
@@ -73,12 +75,13 @@ public class OuterWorkflowController {
         }
     }
 
-    @POST
-    @Path("delete")
+    @DELETE
+    @Path("/projects/{projectId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public GeneralResponse<?> deleteWorkflowProject(DeleteProjectRequest request) throws UnExpectedRequestException {
+    public GeneralResponse<?> deleteWorkflowProject(DeleteProjectRequest request,@PathParam("projectId") Long projectId) throws UnExpectedRequestException {
         try {
+            request.setProjectId(projectId);
             return outerWorkflowService.deleteWorkflowProject(request);
         } catch (UnExpectedRequestException e) {
             throw new UnExpectedRequestException(e.getMessage());
